@@ -1,8 +1,2 @@
 git+https://github.com/ThomasChauve/xarray_uvecs@main#egg=xarrayuvecs
 git+https://github.com/ThomasChauve/xarray_aita@main#egg=xarrayaita
-jupyter-book
-matplotlib
-numpy
-scikit-learn
-scikit-image
-xarray

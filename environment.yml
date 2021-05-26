@@ -1,0 +1,15 @@
+name: envAITA
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python
+  - jupyter-book
+  - matplotlib
+  - numpy
+  - xarray
+  - scikit-learn
+  - scikit-image
+  - pip
+  - pip:
+    - -r requirements.txt
