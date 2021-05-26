@@ -1,5 +1,5 @@
-git+https://github.com/ThomasChauve/xarray_uvecs@main#egg=xarray_uvecs
-git+https://github.com/ThomasChauve/xarray_aita@main#egg=xarray_aita
+git+https://github.com/ThomasChauve/xarray_uvecs@main#egg=xarrayuvecs
+git+https://github.com/ThomasChauve/xarray_aita@main#egg=xarrayaita
 jupyter-book
 matplotlib
 numpy
