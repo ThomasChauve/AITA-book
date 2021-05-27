@@ -12,5 +12,5 @@ dependencies:
   - scikit-image
   - pip
   - pip:
-    - -e git+https://github.com/ThomasChauve/xarray_uvecs.git@main#egg=xarray_uvecs
-    - -e git+https://github.com/ThomasChauve/xarray_aita.git@main#egg=xarray_aita
+    - -e git+https://github.com/ThomasChauve/xarray_uvecs.git@main#egg=xarrayuvecs
+    - -e git+https://github.com/ThomasChauve/xarray_aita.git@main#egg=xarrayaita
