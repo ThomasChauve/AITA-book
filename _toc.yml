@@ -4,4 +4,6 @@
 - file: intro
 - file: content
   sections:
-    - file: docs/First_step.ipynb
+    - file: docs/Quick_start.ipynb
+    - file: docs/The_dataset_structure
+    - file: docs/The_dataset_structure.ipynb
