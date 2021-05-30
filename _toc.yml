@@ -2,8 +2,12 @@
 # Learn more at https://jupyterbook.org/customize/toc.html
 #
 - file: docs/intro.ipynb
+
 - part: Tutorials
-    - file: docs/Quick_start.ipynb
+    chapters:
+        - file: docs/Quick_start.ipynb
+        
 - part: The xarray dependencies
-    - file: docs/The_dataset_structure.ipynb
-    - file: docs/The_dataArray_structure.ipynb
+    chapters:
+        - file: docs/The_dataset_structure.ipynb
+        - file: docs/The_dataArray_structure.ipynb
