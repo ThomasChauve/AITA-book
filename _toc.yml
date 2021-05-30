@@ -6,6 +6,7 @@
 - part: Tutorials
   chapters:
     - file: docs/Quick_start
+    - file: docs/Crop_data
         
 - part: The xarray dependencies
   chapters:
