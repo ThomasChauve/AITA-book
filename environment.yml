@@ -11,6 +11,7 @@ dependencies:
   - scikit-learn
   - scikit-image
   - ipywidgets
+  - ipympl
   - pip
   - pip:
     - -e git+https://github.com/ThomasChauve/xarray_uvecs.git@main#egg=xarrayuvecs

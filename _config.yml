@@ -10,7 +10,9 @@ logo: logo.png
 execute:
   execute_notebooks: auto
   timeout: -1
-
+  exclude_patterns:
+    - 'docs/Crop_data.ipynb'
+    
 # Define the name of the latex output file for PDF builds
 latex:
   latex_documents:
