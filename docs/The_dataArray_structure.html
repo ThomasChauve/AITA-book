@@ -49,6 +49,8 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -82,39 +84,21 @@
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../intro.html">
-   Welcome to AITA notebook
+  <a class="reference internal" href="intro.html">
+   Welcome to AITA book
   </a>
  </li>
 </ul>
+<p class="caption">
+ <span class="caption-text">
+  Tutorials
+ </span>
+</p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../content.html">
-   Basic exemple of AITA data analysis
+ <li class="toctree-l1">
+  <a class="reference internal" href="Quick_start.html">
+   Quick start
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Quick_start.html">
-     Quick start
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="The_dataset_structure.html">
-     The
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       xarray.Dataset
-      </span>
-     </code>
-     strucuture for AITA
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -217,6 +201,69 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-an-xarrayuvecs-dataarray">
+   What is an
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     xarrayuvecs
+    </span>
+   </code>
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     DataArray
+    </span>
+   </code>
+   ?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#export-different-coordinate-system">
+   Export different coordinate system
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bunge-euler-convention">
+     Bunge Euler convention
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#cartesien-coordinate">
+     Cartesien coordinate
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#colormap">
+   Colormap
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#full-colorwheel">
+     Full colorwheel
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#semi-colorwheel">
+     Semi colorwheel
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-odf">
+   The ODF
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -227,27 +274,887 @@
                 
   <div class="section" id="the-xarray-dataarray-stucture-for-uvecs">
 <h1>The <code class="docutils literal notranslate"><span class="pre">xarray.DataArray</span></code> stucture for uvecs<a class="headerlink" href="#the-xarray-dataarray-stucture-for-uvecs" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">xarrayuvecs</span></code> propose a accessor for <code class="docutils literal notranslate"><span class="pre">xarray.DataArray</span></code> to work on “<strong>U</strong>nit <strong>VEC</strong>ctor that are <strong>S</strong>ymmetrical” (<strong>UVECS</strong>).</p>
+<p>In this case symetrical mean that a vector <strong>x</strong> has the same meaning than <strong>-x</strong>. Therefore is can be usefull to describe non directional orientation such as crystallographic orientation dor instance.</p>
+<p>In this notebook we will show what can be done using <code class="docutils literal notranslate"><span class="pre">xarrayuvec</span></code> accessor.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Bunge_Euler</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">uvecs</span><span class="o">.</span><span class="n">bunge_euler</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xarrayaita.loadData_aita</span> <span class="k">as</span> <span class="nn">lda</span> <span class="c1">#here are some function to build xarrayaita structure</span>
+<span class="kn">import</span> <span class="nn">xarrayaita.aita</span> <span class="k">as</span> <span class="nn">xa</span>
+<span class="kn">import</span> <span class="nn">xarrayuvecs.uvecs</span> <span class="k">as</span> <span class="nn">xu</span>
+<span class="kn">import</span> <span class="nn">xarrayuvecs.lut2d</span> <span class="k">as</span> <span class="nn">lut2d</span>
+
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.cm</span> <span class="k">as</span> <span class="nn">cm</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Load data</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># path to data and microstructure</span>
+<span class="n">path_data</span><span class="o">=</span><span class="s1">&#39;orientation_test.dat&#39;</span>
+<span class="n">path_micro</span><span class="o">=</span><span class="s1">&#39;micro_test.bmp&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">=</span><span class="n">lda</span><span class="o">.</span><span class="n">aita5col</span><span class="p">(</span><span class="n">path_data</span><span class="p">,</span><span class="n">path_micro</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">ccc58ebd7c20</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">Bunge_Euler</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">uvecs</span><span class="o">.</span><span class="n">bunge_euler</span><span class="p">()</span>
+<div class="output text_html"><div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewBox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewBox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
+ *
+ */
 
-<span class="ne">NameError</span>: name &#39;data&#39; is not defined
+:root {
+  --xr-font-color0: var(--jp-content-font-color0, rgba(0, 0, 0, 1));
+  --xr-font-color2: var(--jp-content-font-color2, rgba(0, 0, 0, 0.54));
+  --xr-font-color3: var(--jp-content-font-color3, rgba(0, 0, 0, 0.38));
+  --xr-border-color: var(--jp-border-color2, #e0e0e0);
+  --xr-disabled-color: var(--jp-layout-color3, #bdbdbd);
+  --xr-background-color: var(--jp-layout-color0, white);
+  --xr-background-color-row-even: var(--jp-layout-color1, white);
+  --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
+}
+
+html[theme=dark],
+body.vscode-dark {
+  --xr-font-color0: rgba(255, 255, 255, 1);
+  --xr-font-color2: rgba(255, 255, 255, 0.54);
+  --xr-font-color3: rgba(255, 255, 255, 0.38);
+  --xr-border-color: #1F1F1F;
+  --xr-disabled-color: #515151;
+  --xr-background-color: #111111;
+  --xr-background-color-row-even: #111111;
+  --xr-background-color-row-odd: #313131;
+}
+
+.xr-wrap {
+  display: block;
+  min-width: 300px;
+  max-width: 700px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  border-bottom: solid 1px var(--xr-border-color);
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-array-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type {
+  color: var(--xr-font-color2);
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 20px 20px;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item input {
+  display: none;
+}
+
+.xr-section-item input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.5em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: '►';
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: '▼';
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  display: none;
+  grid-column: 1 / -1;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: '(';
+}
+
+.xr-dim-list:after {
+  content: ')';
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ',';
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  margin-bottom: 0;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data {
+  display: none;
+  background-color: var(--xr-background-color) !important;
+  padding-bottom: 5px !important;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2 {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+</style><pre class='xr-text-repr-fallback'>&lt;xarray.Dataset&gt;
+Dimensions:      (uvecs: 2, x: 1000, y: 2500)
+Coordinates:
+  * x            (x) float64 0.0 0.02 0.04 0.06 0.08 ... 19.92 19.94 19.96 19.98
+  * y            (y) float64 49.98 49.96 49.94 49.92 49.9 ... 0.06 0.04 0.02 0.0
+Dimensions without coordinates: uvecs
+Data variables:
+    orientation  (y, x, uvecs) float64 2.395 0.6451 5.377 ... 0.6098 0.6473
+    quality      (y, x) int64 0 90 92 93 92 92 94 94 ... 96 96 96 96 96 97 97 96
+    micro        (y, x) float64 0.0 0.0 0.0 0.0 0.0 0.0 ... 0.0 0.0 0.0 0.0 0.0
+    grainId      (y, x) int64 1 1 1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 1
+Attributes:
+    date:       Thursday, 19 Nov 2015, 11:24 am
+    unit:       millimeters
+    step_size:  0.02
+    path_dat:   orientation_test.dat</pre><div class='xr-wrap' hidden><div class='xr-header'><div class='xr-obj-type'>xarray.Dataset</div></div><ul class='xr-sections'><li class='xr-section-item'><input id='section-f5510a57-85d1-4b9e-af8d-7fae805a8f90' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-f5510a57-85d1-4b9e-af8d-7fae805a8f90' class='xr-section-summary'  title='Expand/collapse section'>Dimensions:</label><div class='xr-section-inline-details'><ul class='xr-dim-list'><li><span>uvecs</span>: 2</li><li><span class='xr-has-index'>x</span>: 1000</li><li><span class='xr-has-index'>y</span>: 2500</li></ul></div><div class='xr-section-details'></div></li><li class='xr-section-item'><input id='section-da3abe10-6302-4fdf-bb4e-a24601ce1120' class='xr-section-summary-in' type='checkbox'  checked><label for='section-da3abe10-6302-4fdf-bb4e-a24601ce1120' class='xr-section-summary' >Coordinates: <span>(2)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>x</span></div><div class='xr-var-dims'>(x)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.0 0.02 0.04 ... 19.94 19.96 19.98</div><input id='attrs-1f8843da-e972-4f41-add6-3d1855973c42' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-1f8843da-e972-4f41-add6-3d1855973c42' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-f55be94e-e95b-4611-970f-8fa0fcfd8749' class='xr-var-data-in' type='checkbox'><label for='data-f55be94e-e95b-4611-970f-8fa0fcfd8749' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([ 0.  ,  0.02,  0.04, ..., 19.94, 19.96, 19.98])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>y</span></div><div class='xr-var-dims'>(y)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>49.98 49.96 49.94 ... 0.04 0.02 0.0</div><input id='attrs-527524eb-c3b9-4d53-bd41-42d4a75bd512' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-527524eb-c3b9-4d53-bd41-42d4a75bd512' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-cd670b1b-a0ed-4dde-9175-8394354a2274' class='xr-var-data-in' type='checkbox'><label for='data-cd670b1b-a0ed-4dde-9175-8394354a2274' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([4.998e+01, 4.996e+01, 4.994e+01, ..., 4.000e-02, 2.000e-02, 0.000e+00])</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-c36dfccc-53d1-4e40-9437-43d6f8e4867e' class='xr-section-summary-in' type='checkbox'  checked><label for='section-c36dfccc-53d1-4e40-9437-43d6f8e4867e' class='xr-section-summary' >Data variables: <span>(4)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>orientation</span></div><div class='xr-var-dims'>(y, x, uvecs)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>2.395 0.6451 ... 0.6098 0.6473</div><input id='attrs-83679f59-ed40-40b5-a992-9b6461e6b407' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-83679f59-ed40-40b5-a992-9b6461e6b407' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-737d7357-0063-4051-aeed-2c7c92cfe26f' class='xr-var-data-in' type='checkbox'><label for='data-737d7357-0063-4051-aeed-2c7c92cfe26f' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[[2.39476627, 0.64507369],
+        [5.37718489, 1.04999008],
+        [5.38905313, 1.05627326],
+        ...,
+        [2.05826679, 0.49654617],
+        [5.65731024, 0.94160513],
+        [5.68523551, 1.03218772]],
+
+       [[5.35955707, 1.15837502],
+        [5.35885894, 1.12975162],
+        [5.3613024 , 1.11701072],
+        ...,
+        [2.07659274, 0.52063172],
+        [5.64753639, 0.94073247],
+        [5.67912685, 1.04143796]],
+
+       [[5.36304773, 1.23045712],
+        [5.36165146, 1.23132979],
+        [2.38656322, 0.57246799],
+        ...,
+...
+        ...,
+        [0.62378067, 0.625526  ],
+        [0.61784656, 0.61994095],
+        [0.61645029, 0.61400683]],
+
+       [[0.68085294, 1.12399204],
+        [0.68050388, 1.12730816],
+        [0.67840948, 1.13900187],
+        ...,
+        [0.64123397, 0.62954026],
+        [0.62430427, 0.63529985],
+        [0.61575216, 0.62203535]],
+
+       [[0.67701322, 1.13236962],
+        [0.67753682, 1.13690747],
+        [0.67840948, 1.13149695],
+        ...,
+        [0.63652158, 0.61418136],
+        [0.61645029, 0.63948864],
+        [0.60981804, 0.64734262]]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>quality</span></div><div class='xr-var-dims'>(y, x)</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>0 90 92 93 92 92 ... 96 96 97 97 96</div><input id='attrs-bb18ad67-9306-4640-8f40-812d2cd1494a' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-bb18ad67-9306-4640-8f40-812d2cd1494a' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-e7f2ca68-9a4d-4017-8420-2d3478dde061' class='xr-var-data-in' type='checkbox'><label for='data-e7f2ca68-9a4d-4017-8420-2d3478dde061' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[ 0, 90, 92, ...,  0, 85, 90],
+       [81, 82, 83, ...,  0, 84, 89],
+       [81, 80,  3, ...,  0, 79, 88],
+       ...,
+       [90, 91, 91, ..., 95, 95, 95],
+       [91, 92, 91, ..., 95, 95, 95],
+       [92, 92, 91, ..., 97, 97, 96]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>micro</span></div><div class='xr-var-dims'>(y, x)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.0 0.0 0.0 0.0 ... 0.0 0.0 0.0 0.0</div><input id='attrs-619f4947-9aa3-44e1-aea6-274775473d5a' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-619f4947-9aa3-44e1-aea6-274775473d5a' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-8de1da61-1727-451c-92c1-98f7ed9c0659' class='xr-var-data-in' type='checkbox'><label for='data-8de1da61-1727-451c-92c1-98f7ed9c0659' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[0., 0., 0., ..., 0., 0., 0.],
+       [0., 0., 0., ..., 0., 0., 0.],
+       [0., 0., 0., ..., 0., 0., 0.],
+       ...,
+       [0., 0., 0., ..., 0., 0., 0.],
+       [0., 0., 0., ..., 0., 0., 0.],
+       [0., 0., 0., ..., 0., 0., 0.]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>grainId</span></div><div class='xr-var-dims'>(y, x)</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1</div><input id='attrs-43297759-3fd4-4810-8f59-7d3f4e83dcbd' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-43297759-3fd4-4810-8f59-7d3f4e83dcbd' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-f73300c2-7609-476b-afec-94afa35ec30c' class='xr-var-data-in' type='checkbox'><label for='data-f73300c2-7609-476b-afec-94afa35ec30c' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[1, 1, 1, ..., 1, 1, 1],
+       [1, 1, 1, ..., 1, 1, 1],
+       [1, 1, 1, ..., 1, 1, 1],
+       ...,
+       [1, 1, 1, ..., 1, 1, 1],
+       [1, 1, 1, ..., 1, 1, 1],
+       [1, 1, 1, ..., 1, 1, 1]])</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-fd308033-4e04-418f-8a97-454720a152ad' class='xr-section-summary-in' type='checkbox'  checked><label for='section-fd308033-4e04-418f-8a97-454720a152ad' class='xr-section-summary' >Attributes: <span>(4)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'><dt><span>date :</span></dt><dd>Thursday, 19 Nov 2015, 11:24 am</dd><dt><span>unit :</span></dt><dd>millimeters</dd><dt><span>step_size :</span></dt><dd>0.02</dd><dt><span>path_dat :</span></dt><dd>orientation_test.dat</dd></dl></div></li></ul></div></div></div></div>
+</div>
+<div class="section" id="what-is-an-xarrayuvecs-dataarray">
+<h2>What is an <code class="docutils literal notranslate"><span class="pre">xarrayuvecs</span></code> <code class="docutils literal notranslate"><span class="pre">DataArray</span></code> ?<a class="headerlink" href="#what-is-an-xarrayuvecs-dataarray" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewBox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewBox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
+ *
+ */
+
+:root {
+  --xr-font-color0: var(--jp-content-font-color0, rgba(0, 0, 0, 1));
+  --xr-font-color2: var(--jp-content-font-color2, rgba(0, 0, 0, 0.54));
+  --xr-font-color3: var(--jp-content-font-color3, rgba(0, 0, 0, 0.38));
+  --xr-border-color: var(--jp-border-color2, #e0e0e0);
+  --xr-disabled-color: var(--jp-layout-color3, #bdbdbd);
+  --xr-background-color: var(--jp-layout-color0, white);
+  --xr-background-color-row-even: var(--jp-layout-color1, white);
+  --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
+}
+
+html[theme=dark],
+body.vscode-dark {
+  --xr-font-color0: rgba(255, 255, 255, 1);
+  --xr-font-color2: rgba(255, 255, 255, 0.54);
+  --xr-font-color3: rgba(255, 255, 255, 0.38);
+  --xr-border-color: #1F1F1F;
+  --xr-disabled-color: #515151;
+  --xr-background-color: #111111;
+  --xr-background-color-row-even: #111111;
+  --xr-background-color-row-odd: #313131;
+}
+
+.xr-wrap {
+  display: block;
+  min-width: 300px;
+  max-width: 700px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  border-bottom: solid 1px var(--xr-border-color);
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-array-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type {
+  color: var(--xr-font-color2);
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 20px 20px;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item input {
+  display: none;
+}
+
+.xr-section-item input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.5em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: '►';
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: '▼';
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  display: none;
+  grid-column: 1 / -1;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: '(';
+}
+
+.xr-dim-list:after {
+  content: ')';
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ',';
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  margin-bottom: 0;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data {
+  display: none;
+  background-color: var(--xr-background-color) !important;
+  padding-bottom: 5px !important;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2 {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+</style><pre class='xr-text-repr-fallback'>&lt;xarray.DataArray &#x27;orientation&#x27; (y: 2, x: 2, uvecs: 2)&gt;
+array([[[2.39476627, 0.64507369],
+        [5.37718489, 1.04999008]],
+
+       [[5.35955707, 1.15837502],
+        [5.35885894, 1.12975162]]])
+Coordinates:
+  * x        (x) float64 0.0 0.02
+  * y        (y) float64 49.98 49.96
+Dimensions without coordinates: uvecs</pre><div class='xr-wrap' hidden><div class='xr-header'><div class='xr-obj-type'>xarray.DataArray</div><div class='xr-array-name'>'orientation'</div><ul class='xr-dim-list'><li><span class='xr-has-index'>y</span>: 2</li><li><span class='xr-has-index'>x</span>: 2</li><li><span>uvecs</span>: 2</li></ul></div><ul class='xr-sections'><li class='xr-section-item'><div class='xr-array-wrap'><input id='section-d5de331b-bde6-40ed-855f-b9d4ce9845b7' class='xr-array-in' type='checkbox' checked><label for='section-d5de331b-bde6-40ed-855f-b9d4ce9845b7' title='Show/hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-array-preview xr-preview'><span>2.395 0.6451 5.377 1.05 5.36 1.158 5.359 1.13</span></div><div class='xr-array-data'><pre>array([[[2.39476627, 0.64507369],
+        [5.37718489, 1.04999008]],
+
+       [[5.35955707, 1.15837502],
+        [5.35885894, 1.12975162]]])</pre></div></div></li><li class='xr-section-item'><input id='section-18ad591f-e8fe-4048-b720-99faed0e3c41' class='xr-section-summary-in' type='checkbox'  checked><label for='section-18ad591f-e8fe-4048-b720-99faed0e3c41' class='xr-section-summary' >Coordinates: <span>(2)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>x</span></div><div class='xr-var-dims'>(x)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.0 0.02</div><input id='attrs-5620ea56-36db-41b9-944d-54cd231a8218' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-5620ea56-36db-41b9-944d-54cd231a8218' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-7ca61fab-3417-474c-a090-be1b59b7b24a' class='xr-var-data-in' type='checkbox'><label for='data-7ca61fab-3417-474c-a090-be1b59b7b24a' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([0.  , 0.02])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>y</span></div><div class='xr-var-dims'>(y)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>49.98 49.96</div><input id='attrs-13d0aebd-8652-4d23-8d94-294e5ced0515' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-13d0aebd-8652-4d23-8d94-294e5ced0515' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-d7a5ed9e-61e7-4fa5-b807-cd9af453c8cc' class='xr-var-data-in' type='checkbox'><label for='data-d7a5ed9e-61e7-4fa5-b807-cd9af453c8cc' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([49.98, 49.96])</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-6df003d6-eb69-4023-a833-c9578a7fe1d1' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-6df003d6-eb69-4023-a833-c9578a7fe1d1' class='xr-section-summary'  title='Expand/collapse section'>Attributes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'></dl></div></li></ul></div></div></div></div>
 </div>
-<p>It is a <code class="docutils literal notranslate"><span class="pre">xarray.DataArray</span></code>. You can save it in your data set if you want :</p>
+<p><code class="docutils literal notranslate"><span class="pre">xarrayuvecs</span></code> accessor should be used on <code class="docutils literal notranslate"><span class="pre">xarray.DataArray</span></code> <strong>da</strong> that have a dimension of <span class="math notranslate nohighlight">\(m\times n \times 2\)</span>. The <strong>da[:,:,0]</strong> correspond to the azimuth <span class="math notranslate nohighlight">\(\Phi\)</span> coordinate of the unit vector and <strong>da[:,:,1]</strong> to the colatitude <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
+<p><img alt="Definition of the Azimuth and Colatitude.}" src="../_images/Azi_Col_Def.png" /></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Bunge&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">Bunge_Euler</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">orientation</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;azimuth $\Phi$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">orientation</span><span class="p">[:,:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;colatitude $</span><span class="se">\t</span><span class="s1">heta$&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;colatitude $\theta$&#39;)
+</pre></div>
+</div>
+<img alt="../_images/The_dataArray_structure_10_1.png" src="../_images/The_dataArray_structure_10_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="export-different-coordinate-system">
+<h2>Export different coordinate system<a class="headerlink" href="#export-different-coordinate-system" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="bunge-euler-convention">
+<h3>Bunge Euler convention<a class="headerlink" href="#bunge-euler-convention" title="Permalink to this headline">¶</a></h3>
+<p>The Bunge Euler convention is widely use in crystallographic community.</p>
+<ol class="simple">
+<li><p><span class="math notranslate nohighlight">\(\phi_1\)</span> is the rotation around <span class="math notranslate nohighlight">\(Oz\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\phi\)</span> is the rotation around <span class="math notranslate nohighlight">\(Ou\)</span></p></li>
+</ol>
+<p><img alt="Definition of the Bunge Euler angle." src="../_images/DefBungeEuler.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Bunge_Euler&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">uvecs</span><span class="o">.</span><span class="n">bunge_euler</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -256,11 +1163,11 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">data</span><span class="o">.</span><span class="n">Bunge</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">data</span><span class="o">.</span><span class="n">Bunge_Euler</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;phi1&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">data</span><span class="o">.</span><span class="n">Bunge</span><span class="p">[:,:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">data</span><span class="o">.</span><span class="n">Bunge_Euler</span><span class="p">[:,:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;phi&#39;</span><span class="p">)</span>
 </pre></div>
@@ -270,10 +1177,13 @@
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;phi&#39;)
 </pre></div>
 </div>
-<img alt="../_images/The_dataArray_structure_4_1.png" src="../_images/The_dataArray_structure_4_1.png" />
+<img alt="../_images/The_dataArray_structure_13_1.png" src="../_images/The_dataArray_structure_13_1.png" />
 </div>
 </div>
-<p>You can also extract the vector in cartesien coordinate. And directly store it in the <code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>.</p>
+</div>
+<div class="section" id="cartesien-coordinate">
+<h3>Cartesien coordinate<a class="headerlink" href="#cartesien-coordinate" title="Permalink to this headline">¶</a></h3>
+<p>You can also extract the vector in cartesien coordinate.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;oXYZ&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">uvecs</span><span class="o">.</span><span class="n">xyz</span><span class="p">()</span>
@@ -285,15 +1195,15 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">data</span><span class="o">.</span><span class="n">oXYZ</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">data</span><span class="o">.</span><span class="n">oXYZ</span><span class="p">[:,:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">data</span><span class="o">.</span><span class="n">oXYZ</span><span class="p">[:,:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">data</span><span class="o">.</span><span class="n">oXYZ</span><span class="p">[:,:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">data</span><span class="o">.</span><span class="n">oXYZ</span><span class="p">[:,:,</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">data</span><span class="o">.</span><span class="n">oXYZ</span><span class="p">[:,:,</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">)</span>
 </pre></div>
@@ -303,7 +1213,122 @@
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Z&#39;)
 </pre></div>
 </div>
-<img alt="../_images/The_dataArray_structure_7_1.png" src="../_images/The_dataArray_structure_7_1.png" />
+<img alt="../_images/The_dataArray_structure_16_1.png" src="../_images/The_dataArray_structure_16_1.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="colormap">
+<h2>Colormap<a class="headerlink" href="#colormap" title="Permalink to this headline">¶</a></h2>
+<p>Colormap plotting the orientation can be done using colorwheel.</p>
+<div class="section" id="full-colorwheel">
+<h3>Full colorwheel<a class="headerlink" href="#full-colorwheel" title="Permalink to this headline">¶</a></h3>
+<p>The colorcode used to display one orientation is choosen using a given colorwheel (show below). Using the “Full Colorwheel” will display a unique color for all the same orientation.</p>
+<ol class="simple">
+<li><p>a black pixel display an orientation along the z-axis <span class="math notranslate nohighlight">\((0,0,1)\)</span></p></li>
+<li><p>a red pixel display an orientation along the minus x-axis <span class="math notranslate nohighlight">\((-1,0,0)\)</span></p></li>
+<li><p>a blue pixel display an orientation along the <span class="math notranslate nohighlight">\(\left(\frac{\sqrt(2)}{2},\frac{-\sqrt(2)}{2},0\right)\)</span></p></li>
+</ol>
+<p>This representation is quite usefull but is not exempt of default. For instance The color codding is discontinous. That mean that vectors <span class="math notranslate nohighlight">\(\left(1,0,+\delta_z\right)\)</span> and <span class="math notranslate nohighlight">\(\left(1,0,-\delta_z\right)\)</span> show very defferent color (pale blue and red) even if the angle between both decrease to 0 as <span class="math notranslate nohighlight">\(\delta_z\)</span> decrease to 0.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lut_f</span><span class="o">=</span><span class="n">lut2d</span><span class="o">.</span><span class="n">lut</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">lut_f</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Full colorwheel&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Full colorwheel&#39;)
+</pre></div>
+</div>
+<img alt="../_images/The_dataArray_structure_18_1.png" src="../_images/The_dataArray_structure_18_1.png" />
+</div>
+</div>
+<p>The colormap associated with this colorwheel can be compute using <code class="docutils literal notranslate"><span class="pre">xarrayuvecs</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;FullColormap&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">uvecs</span><span class="o">.</span><span class="n">calc_colormap</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">data</span><span class="o">.</span><span class="n">FullColormap</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">imshow</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.01, 19.990000000000002, -0.010000000000001563, 49.99000000000001)
+</pre></div>
+</div>
+<img alt="../_images/The_dataArray_structure_21_1.png" src="../_images/The_dataArray_structure_21_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="semi-colorwheel">
+<h3>Semi colorwheel<a class="headerlink" href="#semi-colorwheel" title="Permalink to this headline">¶</a></h3>
+<p>The semi colorwheel is an over represntation of the orientation. It has the advantage to not have any discountinuities but <strong>one color does not correspond to a unique orientation</strong>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><span class="math notranslate nohighlight">\((x,y,z)\)</span> and <span class="math notranslate nohighlight">\((-x,-y,z)\)</span> share the same colorcoding.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;SemiColormap&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">uvecs</span><span class="o">.</span><span class="n">calc_colormap</span><span class="p">(</span><span class="n">semi</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">data</span><span class="o">.</span><span class="n">SemiColormap</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">imshow</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.01, 19.990000000000002, -0.010000000000001563, 49.99000000000001)
+</pre></div>
+</div>
+<img alt="../_images/The_dataArray_structure_24_1.png" src="../_images/The_dataArray_structure_24_1.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="the-odf">
+<h2>The ODF<a class="headerlink" href="#the-odf" title="Permalink to this headline">¶</a></h2>
+<p>The Orientation Density Function (ODF) is a probability density function for orientation. Therefore it’s integral over the sphere is equal to 1.</p>
+<p>It is evaluated using a <a class="reference external" href="https://scikit-learn.org/stable/modules/density.html#kernel-density-estimation">Kernel Density Estimation</a> (KDE) with a gaussian kernel.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Therefore the representation is quite sensitive to the ‘bandwidth’ <strong>bw</strong> paramerter of the gaussian kernel and should be choosen carefully.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">14</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">uvecs</span><span class="o">.</span><span class="n">plotODF</span><span class="p">(</span><span class="n">bw</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;bw=0.02&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">uvecs</span><span class="o">.</span><span class="n">plotODF</span><span class="p">(</span><span class="n">bw</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;bw=0.1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">uvecs</span><span class="o">.</span><span class="n">plotODF</span><span class="p">(</span><span class="n">bw</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;bw=0.2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">orientation</span><span class="o">.</span><span class="n">uvecs</span><span class="o">.</span><span class="n">plotODF</span><span class="p">(</span><span class="n">bw</span><span class="o">=</span><span class="mf">2.</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;bw=2&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 </div>
