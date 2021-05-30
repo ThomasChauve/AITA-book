@@ -1,13 +1,13 @@
 # Table of content
 # Learn more at https://jupyterbook.org/customize/toc.html
 #
-- file: docs/intro.ipynb
+- file: docs/intro
 
 - part: Tutorials
-    chapters:
-        - file: docs/Quick_start.ipynb
+  chapters:
+    - file: docs/Quick_start
         
 - part: The xarray dependencies
-    chapters:
-        - file: docs/The_dataset_structure.ipynb
-        - file: docs/The_dataArray_structure.ipynb
+  chapters:
+    - file: docs/The_dataset_structure
+    - file: docs/The_dataArray_structure
