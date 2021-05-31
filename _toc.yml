@@ -7,6 +7,7 @@
   chapters:
     - file: docs/Quick_start
     - file: docs/Crop_data
+    - file: docs/mis_profile
         
 - part: The xarray dependencies
   chapters:
