@@ -8,6 +8,8 @@
     - file: docs/Quick_start
     - file: docs/Crop_data
     - file: docs/mis_profile
+    - file: docs/mean_grain
+    - file: docs/mis_angle_dist
         
 - part: The xarray dependencies
   chapters:
