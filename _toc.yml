@@ -10,7 +10,8 @@
     - file: docs/mis_profile
     - file: docs/mean_grain
     - file: docs/mis_angle_dist
-        
+    - file: docs/segmentation
+    
 - part: The xarray dependencies
   chapters:
     - file: docs/The_dataset_structure

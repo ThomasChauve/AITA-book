@@ -13,6 +13,7 @@ execute:
   exclude_patterns:
     - 'docs/Crop_data.ipynb'
     - 'docs/mis_profile.ipynb'
+    - 'docs/segmentation.ipynb'
 
     
 # Define the name of the latex output file for PDF builds
