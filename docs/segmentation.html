@@ -1,0 +1,1385 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Performed segmentation &#8212; AITA data analysis</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="The xarray.Dataset strucuture for AITA" href="The_dataset_structure.html" />
+    <link rel="prev" title="The misorientation angle distribution" href="mis_angle_dist.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">AITA data analysis</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Welcome to AITA book
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Tutorials
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Quick_start.html">
+   Quick start
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Crop_data.html">
+   Crop data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mis_profile.html">
+   Misorientation profile
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mean_grain.html">
+   Mean orientation per grain
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="mis_angle_dist.html">
+   The misorientation angle distribution
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Performed segmentation
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  The xarray dependencies
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="The_dataset_structure.html">
+   The
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     xarray.Dataset
+    </span>
+   </code>
+   strucuture for AITA
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="The_dataArray_structure.html">
+   The
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     xarray.DataArray
+    </span>
+   </code>
+   stucture for uvecs
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Script just to IGE (need to be remove)
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="CraFT.html">
+   Create input for CraFT
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/docs/segmentation.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/ThomasChauve/AITA-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/ThomasChauve/AITA-book/issues/new?title=Issue%20on%20page%20%2Fdocs/segmentation.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/ThomasChauve/AITA-book/edit/main/./docs/segmentation.ipynb"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/ThomasChauve/AITA-book/main?urlpath=lab/tree/./docs/segmentation.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#load-your-data">
+   Load your data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#segment-the-data">
+   Segment the data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-new-xarray-dataset-aita">
+   The new
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     xarray.DataSet.aita
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plot-micro">
+     Plot micro
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plot-grainid">
+     Plot grainId
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-parameters-for-the-segmentation">
+   The parameters for the segmentation
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="performed-segmentation">
+<h1>Performed segmentation<a class="headerlink" href="#performed-segmentation" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This notebook shows how to use a function that is poorly written and not optimized. The results from this function are also to be taken carefully.</p>
+</div>
+<p>This notebook show how to segment you data to find grain boundaries.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xarrayaita.loadData_aita</span> <span class="k">as</span> <span class="nn">lda</span> <span class="c1">#here are some function to build xarrayaita structure</span>
+<span class="kn">import</span> <span class="nn">xarrayaita.aita</span> <span class="k">as</span> <span class="nn">xa</span>
+<span class="kn">import</span> <span class="nn">xarrayuvecs.uvecs</span> <span class="k">as</span> <span class="nn">xu</span>
+<span class="kn">import</span> <span class="nn">xarrayuvecs.lut2d</span> <span class="k">as</span> <span class="nn">lut2d</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.cm</span> <span class="k">as</span> <span class="nn">cm</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">skimage</span> <span class="kn">import</span> <span class="n">morphology</span>
+<span class="kn">from</span> <span class="nn">tqdm.notebook</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> widget
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="load-your-data">
+<h2>Load your data<a class="headerlink" href="#load-your-data" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># path to data and microstructure</span>
+<span class="n">path_data</span><span class="o">=</span><span class="s1">&#39;orientation_test.dat&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">=</span><span class="n">lda</span><span class="o">.</span><span class="n">aita5col</span><span class="p">(</span><span class="n">path_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewBox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewBox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
+ *
+ */
+
+:root {
+  --xr-font-color0: var(--jp-content-font-color0, rgba(0, 0, 0, 1));
+  --xr-font-color2: var(--jp-content-font-color2, rgba(0, 0, 0, 0.54));
+  --xr-font-color3: var(--jp-content-font-color3, rgba(0, 0, 0, 0.38));
+  --xr-border-color: var(--jp-border-color2, #e0e0e0);
+  --xr-disabled-color: var(--jp-layout-color3, #bdbdbd);
+  --xr-background-color: var(--jp-layout-color0, white);
+  --xr-background-color-row-even: var(--jp-layout-color1, white);
+  --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
+}
+
+html[theme=dark],
+body.vscode-dark {
+  --xr-font-color0: rgba(255, 255, 255, 1);
+  --xr-font-color2: rgba(255, 255, 255, 0.54);
+  --xr-font-color3: rgba(255, 255, 255, 0.38);
+  --xr-border-color: #1F1F1F;
+  --xr-disabled-color: #515151;
+  --xr-background-color: #111111;
+  --xr-background-color-row-even: #111111;
+  --xr-background-color-row-odd: #313131;
+}
+
+.xr-wrap {
+  display: block;
+  min-width: 300px;
+  max-width: 700px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  border-bottom: solid 1px var(--xr-border-color);
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-array-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type {
+  color: var(--xr-font-color2);
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 20px 20px;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item input {
+  display: none;
+}
+
+.xr-section-item input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.5em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: '►';
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: '▼';
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  display: none;
+  grid-column: 1 / -1;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: '(';
+}
+
+.xr-dim-list:after {
+  content: ')';
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ',';
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  margin-bottom: 0;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data {
+  display: none;
+  background-color: var(--xr-background-color) !important;
+  padding-bottom: 5px !important;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2 {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+</style><pre class='xr-text-repr-fallback'>&lt;xarray.Dataset&gt;
+Dimensions:      (uvecs: 2, x: 1000, y: 2500)
+Coordinates:
+  * x            (x) float64 0.0 0.02 0.04 0.06 0.08 ... 19.92 19.94 19.96 19.98
+  * y            (y) float64 49.98 49.96 49.94 49.92 49.9 ... 0.06 0.04 0.02 0.0
+Dimensions without coordinates: uvecs
+Data variables:
+    orientation  (y, x, uvecs) float64 2.395 0.6451 5.377 ... 0.6098 0.6473
+    quality      (y, x) int64 0 90 92 93 92 92 94 94 ... 96 96 96 96 96 97 97 96
+    micro        (y, x) float64 0.0 0.0 0.0 0.0 0.0 0.0 ... 0.0 0.0 0.0 0.0 0.0
+    grainId      (y, x) int64 1 1 1 1 1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1 1 1 1
+Attributes:
+    date:       Thursday, 19 Nov 2015, 11:24 am
+    unit:       millimeters
+    step_size:  0.02
+    path_dat:   orientation_test.dat</pre><div class='xr-wrap' hidden><div class='xr-header'><div class='xr-obj-type'>xarray.Dataset</div></div><ul class='xr-sections'><li class='xr-section-item'><input id='section-f7bafc87-4bcb-476b-a875-4eeeae7b9992' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-f7bafc87-4bcb-476b-a875-4eeeae7b9992' class='xr-section-summary'  title='Expand/collapse section'>Dimensions:</label><div class='xr-section-inline-details'><ul class='xr-dim-list'><li><span>uvecs</span>: 2</li><li><span class='xr-has-index'>x</span>: 1000</li><li><span class='xr-has-index'>y</span>: 2500</li></ul></div><div class='xr-section-details'></div></li><li class='xr-section-item'><input id='section-13268c47-e076-4be5-87e2-8aeffb4a86c8' class='xr-section-summary-in' type='checkbox'  checked><label for='section-13268c47-e076-4be5-87e2-8aeffb4a86c8' class='xr-section-summary' >Coordinates: <span>(2)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>x</span></div><div class='xr-var-dims'>(x)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.0 0.02 0.04 ... 19.94 19.96 19.98</div><input id='attrs-3e346cc3-d8d4-4414-b081-69f32bcd9897' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-3e346cc3-d8d4-4414-b081-69f32bcd9897' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-57eb3c0e-57e9-439a-a68f-f34f23341e51' class='xr-var-data-in' type='checkbox'><label for='data-57eb3c0e-57e9-439a-a68f-f34f23341e51' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([ 0.  ,  0.02,  0.04, ..., 19.94, 19.96, 19.98])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>y</span></div><div class='xr-var-dims'>(y)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>49.98 49.96 49.94 ... 0.04 0.02 0.0</div><input id='attrs-65d77c68-17ac-4440-b7e1-f81a420a7c9c' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-65d77c68-17ac-4440-b7e1-f81a420a7c9c' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-9b362119-dce5-4a1c-b92c-831a77f6b384' class='xr-var-data-in' type='checkbox'><label for='data-9b362119-dce5-4a1c-b92c-831a77f6b384' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([4.998e+01, 4.996e+01, 4.994e+01, ..., 4.000e-02, 2.000e-02, 0.000e+00])</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-95eec4e5-614f-4044-8146-9f49041e60f3' class='xr-section-summary-in' type='checkbox'  checked><label for='section-95eec4e5-614f-4044-8146-9f49041e60f3' class='xr-section-summary' >Data variables: <span>(4)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>orientation</span></div><div class='xr-var-dims'>(y, x, uvecs)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>2.395 0.6451 ... 0.6098 0.6473</div><input id='attrs-c3836497-5bf0-49a3-9d15-d00095021233' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-c3836497-5bf0-49a3-9d15-d00095021233' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-f779025c-a68d-4498-b975-7b21e7d07733' class='xr-var-data-in' type='checkbox'><label for='data-f779025c-a68d-4498-b975-7b21e7d07733' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[[2.39476627, 0.64507369],
+        [5.37718489, 1.04999008],
+        [5.38905313, 1.05627326],
+        ...,
+        [2.05826679, 0.49654617],
+        [5.65731024, 0.94160513],
+        [5.68523551, 1.03218772]],
+
+       [[5.35955707, 1.15837502],
+        [5.35885894, 1.12975162],
+        [5.3613024 , 1.11701072],
+        ...,
+        [2.07659274, 0.52063172],
+        [5.64753639, 0.94073247],
+        [5.67912685, 1.04143796]],
+
+       [[5.36304773, 1.23045712],
+        [5.36165146, 1.23132979],
+        [2.38656322, 0.57246799],
+        ...,
+...
+        ...,
+        [0.62378067, 0.625526  ],
+        [0.61784656, 0.61994095],
+        [0.61645029, 0.61400683]],
+
+       [[0.68085294, 1.12399204],
+        [0.68050388, 1.12730816],
+        [0.67840948, 1.13900187],
+        ...,
+        [0.64123397, 0.62954026],
+        [0.62430427, 0.63529985],
+        [0.61575216, 0.62203535]],
+
+       [[0.67701322, 1.13236962],
+        [0.67753682, 1.13690747],
+        [0.67840948, 1.13149695],
+        ...,
+        [0.63652158, 0.61418136],
+        [0.61645029, 0.63948864],
+        [0.60981804, 0.64734262]]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>quality</span></div><div class='xr-var-dims'>(y, x)</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>0 90 92 93 92 92 ... 96 96 97 97 96</div><input id='attrs-92e5f5c6-79dc-496e-babd-b865a6b040f7' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-92e5f5c6-79dc-496e-babd-b865a6b040f7' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-9b21fa3a-ed17-4547-96f7-30c04da640b6' class='xr-var-data-in' type='checkbox'><label for='data-9b21fa3a-ed17-4547-96f7-30c04da640b6' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[ 0, 90, 92, ...,  0, 85, 90],
+       [81, 82, 83, ...,  0, 84, 89],
+       [81, 80,  3, ...,  0, 79, 88],
+       ...,
+       [90, 91, 91, ..., 95, 95, 95],
+       [91, 92, 91, ..., 95, 95, 95],
+       [92, 92, 91, ..., 97, 97, 96]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>micro</span></div><div class='xr-var-dims'>(y, x)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.0 0.0 0.0 0.0 ... 0.0 0.0 0.0 0.0</div><input id='attrs-be8e67df-4599-4235-b44d-118453a707f9' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-be8e67df-4599-4235-b44d-118453a707f9' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-fd93a16b-87dd-4763-9c51-96d855f4c95d' class='xr-var-data-in' type='checkbox'><label for='data-fd93a16b-87dd-4763-9c51-96d855f4c95d' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[0., 0., 0., ..., 0., 0., 0.],
+       [0., 0., 0., ..., 0., 0., 0.],
+       [0., 0., 0., ..., 0., 0., 0.],
+       ...,
+       [0., 0., 0., ..., 0., 0., 0.],
+       [0., 0., 0., ..., 0., 0., 0.],
+       [0., 0., 0., ..., 0., 0., 0.]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>grainId</span></div><div class='xr-var-dims'>(y, x)</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>1 1 1 1 1 1 1 1 ... 1 1 1 1 1 1 1 1</div><input id='attrs-44e01fba-972d-41ad-afba-a201ae7fd9df' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-44e01fba-972d-41ad-afba-a201ae7fd9df' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-0632028f-f319-40de-9021-8a44c95e9819' class='xr-var-data-in' type='checkbox'><label for='data-0632028f-f319-40de-9021-8a44c95e9819' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[1, 1, 1, ..., 1, 1, 1],
+       [1, 1, 1, ..., 1, 1, 1],
+       [1, 1, 1, ..., 1, 1, 1],
+       ...,
+       [1, 1, 1, ..., 1, 1, 1],
+       [1, 1, 1, ..., 1, 1, 1],
+       [1, 1, 1, ..., 1, 1, 1]])</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-de009fdf-ca10-4c46-b5e7-488616207c6c' class='xr-section-summary-in' type='checkbox'  checked><label for='section-de009fdf-ca10-4c46-b5e7-488616207c6c' class='xr-section-summary' >Attributes: <span>(4)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'><dt><span>date :</span></dt><dd>Thursday, 19 Nov 2015, 11:24 am</dd><dt><span>unit :</span></dt><dd>millimeters</dd><dt><span>step_size :</span></dt><dd>0.02</dd><dt><span>path_dat :</span></dt><dd>orientation_test.dat</dd></dl></div></li></ul></div></div></div></div>
+</div>
+</div>
+<div class="section" id="segment-the-data">
+<h2>Segment the data<a class="headerlink" href="#segment-the-data" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">out</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">aita</span><span class="o">.</span><span class="n">interactive_segmentation</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "da99ca25a07440e2b533e7070a157694", "version_major": 2, "version_minor": 0}
+</script><script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "764c16ed922d423191df30c28cffc5e8", "version_major": 2, "version_minor": 0}
+</script><script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "3603eade52824082a1b319a29eb7f9e4", "version_major": 2, "version_minor": 0}
+</script></div>
+</div>
+</div>
+<div class="section" id="the-new-xarray-dataset-aita">
+<h2>The new <code class="docutils literal notranslate"><span class="pre">xarray.DataSet.aita</span></code><a class="headerlink" href="#the-new-xarray-dataset-aita" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">out</span><span class="o">.</span><span class="n">ds</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewBox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewBox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
+ *
+ */
+
+:root {
+  --xr-font-color0: var(--jp-content-font-color0, rgba(0, 0, 0, 1));
+  --xr-font-color2: var(--jp-content-font-color2, rgba(0, 0, 0, 0.54));
+  --xr-font-color3: var(--jp-content-font-color3, rgba(0, 0, 0, 0.38));
+  --xr-border-color: var(--jp-border-color2, #e0e0e0);
+  --xr-disabled-color: var(--jp-layout-color3, #bdbdbd);
+  --xr-background-color: var(--jp-layout-color0, white);
+  --xr-background-color-row-even: var(--jp-layout-color1, white);
+  --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
+}
+
+html[theme=dark],
+body.vscode-dark {
+  --xr-font-color0: rgba(255, 255, 255, 1);
+  --xr-font-color2: rgba(255, 255, 255, 0.54);
+  --xr-font-color3: rgba(255, 255, 255, 0.38);
+  --xr-border-color: #1F1F1F;
+  --xr-disabled-color: #515151;
+  --xr-background-color: #111111;
+  --xr-background-color-row-even: #111111;
+  --xr-background-color-row-odd: #313131;
+}
+
+.xr-wrap {
+  display: block;
+  min-width: 300px;
+  max-width: 700px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  border-bottom: solid 1px var(--xr-border-color);
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-array-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type {
+  color: var(--xr-font-color2);
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 20px 20px;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item input {
+  display: none;
+}
+
+.xr-section-item input + label {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-item input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.5em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: '►';
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: '▼';
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  display: none;
+  grid-column: 1 / -1;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: '(';
+}
+
+.xr-dim-list:after {
+  content: ')';
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ',';
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  margin-bottom: 0;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data {
+  display: none;
+  background-color: var(--xr-background-color) !important;
+  padding-bottom: 5px !important;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2 {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+</style><pre class='xr-text-repr-fallback'>&lt;xarray.Dataset&gt;
+Dimensions:      (uvecs: 2, x: 1000, y: 2500)
+Coordinates:
+  * x            (x) float64 0.0 0.02 0.04 0.06 0.08 ... 19.92 19.94 19.96 19.98
+  * y            (y) float64 49.98 49.96 49.94 49.92 49.9 ... 0.06 0.04 0.02 0.0
+Dimensions without coordinates: uvecs
+Data variables:
+    orientation  (y, x, uvecs) float64 2.395 0.6451 5.377 ... 0.6098 0.6473
+    quality      (y, x) int64 0 90 92 93 92 92 94 94 ... 96 96 96 96 96 97 97 96
+    micro        (y, x) bool True True True True True ... True True True True
+    grainId      (y, x) int32 0 0 0 0 0 0 0 0 0 0 0 0 ... 0 0 0 0 0 0 0 0 0 0 0
+Attributes:
+    date:       Thursday, 19 Nov 2015, 11:24 am
+    unit:       millimeters
+    step_size:  0.02
+    path_dat:   orientation_test.dat</pre><div class='xr-wrap' hidden><div class='xr-header'><div class='xr-obj-type'>xarray.Dataset</div></div><ul class='xr-sections'><li class='xr-section-item'><input id='section-f1c63ba9-7517-44f6-9322-b04292ad8bf5' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-f1c63ba9-7517-44f6-9322-b04292ad8bf5' class='xr-section-summary'  title='Expand/collapse section'>Dimensions:</label><div class='xr-section-inline-details'><ul class='xr-dim-list'><li><span>uvecs</span>: 2</li><li><span class='xr-has-index'>x</span>: 1000</li><li><span class='xr-has-index'>y</span>: 2500</li></ul></div><div class='xr-section-details'></div></li><li class='xr-section-item'><input id='section-83450c0d-8bbd-4cbb-9601-ef42cfd9adf6' class='xr-section-summary-in' type='checkbox'  checked><label for='section-83450c0d-8bbd-4cbb-9601-ef42cfd9adf6' class='xr-section-summary' >Coordinates: <span>(2)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>x</span></div><div class='xr-var-dims'>(x)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.0 0.02 0.04 ... 19.94 19.96 19.98</div><input id='attrs-a7e88d43-322c-4fd1-9ddc-08ab77bb8bac' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-a7e88d43-322c-4fd1-9ddc-08ab77bb8bac' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-163050e5-ade1-4aa5-a5dc-f0d49f6aeb3d' class='xr-var-data-in' type='checkbox'><label for='data-163050e5-ade1-4aa5-a5dc-f0d49f6aeb3d' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([ 0.  ,  0.02,  0.04, ..., 19.94, 19.96, 19.98])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>y</span></div><div class='xr-var-dims'>(y)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>49.98 49.96 49.94 ... 0.04 0.02 0.0</div><input id='attrs-2ec84dd8-9a91-48e3-ab1c-36601e7bef67' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-2ec84dd8-9a91-48e3-ab1c-36601e7bef67' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-8931b3c2-4ad0-4e9f-9fb4-c6e602255f90' class='xr-var-data-in' type='checkbox'><label for='data-8931b3c2-4ad0-4e9f-9fb4-c6e602255f90' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([4.998e+01, 4.996e+01, 4.994e+01, ..., 4.000e-02, 2.000e-02, 0.000e+00])</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-07ff9b95-0af3-4b02-81b8-288461abedd3' class='xr-section-summary-in' type='checkbox'  checked><label for='section-07ff9b95-0af3-4b02-81b8-288461abedd3' class='xr-section-summary' >Data variables: <span>(4)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>orientation</span></div><div class='xr-var-dims'>(y, x, uvecs)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>2.395 0.6451 ... 0.6098 0.6473</div><input id='attrs-88883e4d-64c9-4654-be0d-c865e5e46ea8' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-88883e4d-64c9-4654-be0d-c865e5e46ea8' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-5000f888-72a5-4228-b190-b082e8894cec' class='xr-var-data-in' type='checkbox'><label for='data-5000f888-72a5-4228-b190-b082e8894cec' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[[2.39476627, 0.64507369],
+        [5.37718489, 1.04999008],
+        [5.38905313, 1.05627326],
+        ...,
+        [2.05826679, 0.49654617],
+        [5.65731024, 0.94160513],
+        [5.68523551, 1.03218772]],
+
+       [[5.35955707, 1.15837502],
+        [5.35885894, 1.12975162],
+        [5.3613024 , 1.11701072],
+        ...,
+        [2.07659274, 0.52063172],
+        [5.64753639, 0.94073247],
+        [5.67912685, 1.04143796]],
+
+       [[5.36304773, 1.23045712],
+        [5.36165146, 1.23132979],
+        [2.38656322, 0.57246799],
+        ...,
+...
+        ...,
+        [0.62378067, 0.625526  ],
+        [0.61784656, 0.61994095],
+        [0.61645029, 0.61400683]],
+
+       [[0.68085294, 1.12399204],
+        [0.68050388, 1.12730816],
+        [0.67840948, 1.13900187],
+        ...,
+        [0.64123397, 0.62954026],
+        [0.62430427, 0.63529985],
+        [0.61575216, 0.62203535]],
+
+       [[0.67701322, 1.13236962],
+        [0.67753682, 1.13690747],
+        [0.67840948, 1.13149695],
+        ...,
+        [0.63652158, 0.61418136],
+        [0.61645029, 0.63948864],
+        [0.60981804, 0.64734262]]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>quality</span></div><div class='xr-var-dims'>(y, x)</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>0 90 92 93 92 92 ... 96 96 97 97 96</div><input id='attrs-eb7daade-3a06-4e59-af2f-b362acad76bb' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-eb7daade-3a06-4e59-af2f-b362acad76bb' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-e471c6d3-fae9-410c-b2ae-cf62ee7a52dc' class='xr-var-data-in' type='checkbox'><label for='data-e471c6d3-fae9-410c-b2ae-cf62ee7a52dc' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[ 0, 90, 92, ...,  0, 85, 90],
+       [81, 82, 83, ...,  0, 84, 89],
+       [81, 80,  3, ...,  0, 79, 88],
+       ...,
+       [90, 91, 91, ..., 95, 95, 95],
+       [91, 92, 91, ..., 95, 95, 95],
+       [92, 92, 91, ..., 97, 97, 96]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>micro</span></div><div class='xr-var-dims'>(y, x)</div><div class='xr-var-dtype'>bool</div><div class='xr-var-preview xr-preview'>True True True ... True True True</div><input id='attrs-af39abce-a190-445d-9bfc-c219711446c8' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-af39abce-a190-445d-9bfc-c219711446c8' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-1d84c5e3-b804-4f7e-8dfe-6a57906b8f30' class='xr-var-data-in' type='checkbox'><label for='data-1d84c5e3-b804-4f7e-8dfe-6a57906b8f30' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[ True,  True,  True, ...,  True,  True,  True],
+       [ True, False, False, ..., False, False,  True],
+       [ True, False, False, ..., False, False,  True],
+       ...,
+       [ True, False, False, ..., False, False,  True],
+       [ True, False, False, ..., False, False,  True],
+       [ True,  True,  True, ...,  True,  True,  True]])</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>grainId</span></div><div class='xr-var-dims'>(y, x)</div><div class='xr-var-dtype'>int32</div><div class='xr-var-preview xr-preview'>0 0 0 0 0 0 0 0 ... 0 0 0 0 0 0 0 0</div><input id='attrs-9bdec93a-bc7e-4a34-ab48-20a6821588b5' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-9bdec93a-bc7e-4a34-ab48-20a6821588b5' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-7b6279a2-b961-4f91-b31a-871b22bce605' class='xr-var-data-in' type='checkbox'><label for='data-7b6279a2-b961-4f91-b31a-871b22bce605' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([[   0,    0,    0, ...,    0,    0,    0],
+       [   0,    1,    1, ...,   44,   44,    0],
+       [   0,    1,    1, ...,   44,   44,    0],
+       ...,
+       [   0, 1284, 1284, ..., 1286, 1286,    0],
+       [   0, 1284, 1284, ..., 1286, 1286,    0],
+       [   0,    0,    0, ...,    0,    0,    0]], dtype=int32)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-34820845-038f-4fff-8eab-56202c18f4d4' class='xr-section-summary-in' type='checkbox'  checked><label for='section-34820845-038f-4fff-8eab-56202c18f4d4' class='xr-section-summary' >Attributes: <span>(4)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'><dt><span>date :</span></dt><dd>Thursday, 19 Nov 2015, 11:24 am</dd><dt><span>unit :</span></dt><dd>millimeters</dd><dt><span>step_size :</span></dt><dd>0.02</dd><dt><span>path_dat :</span></dt><dd>orientation_test.dat</dd></dl></div></li></ul></div></div></div></div>
+</div>
+<div class="section" id="plot-micro">
+<h3>Plot micro<a class="headerlink" href="#plot-micro" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">out</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">micro</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "830ca3c96d764ac8b1001bae733172ee", "version_major": 2, "version_minor": 0}
+</script><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7f66c9dc8070&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="plot-grainid">
+<h3>Plot grainId<a class="headerlink" href="#plot-grainid" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">out</span><span class="o">.</span><span class="n">ds</span><span class="o">.</span><span class="n">grainId</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "4ae64045b96c42f0bb50959f1b52a2a1", "version_major": 2, "version_minor": 0}
+</script><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.QuadMesh at 0x7f66c9d42580&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="the-parameters-for-the-segmentation">
+<h2>The parameters for the segmentation<a class="headerlink" href="#the-parameters-for-the-segmentation" title="Permalink to this headline">¶</a></h2>
+<p>If you want to re-do the segmentation with the same value they can be find here :</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Use scharr:&#39;</span><span class="p">,</span><span class="n">out</span><span class="o">.</span><span class="n">use_scharr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Value scharr:&#39;</span><span class="p">,</span><span class="n">out</span><span class="o">.</span><span class="n">val_scharr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Use canny:&#39;</span><span class="p">,</span><span class="n">out</span><span class="o">.</span><span class="n">use_canny</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Value canny:&#39;</span><span class="p">,</span><span class="n">out</span><span class="o">.</span><span class="n">val_canny</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Images canny:&#39;</span><span class="p">,</span><span class="n">out</span><span class="o">.</span><span class="n">img_canny</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Use quality:&#39;</span><span class="p">,</span><span class="n">out</span><span class="o">.</span><span class="n">use_quality</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Value quality:&#39;</span><span class="p">,</span><span class="n">out</span><span class="o">.</span><span class="n">val_quality</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Include border:&#39;</span><span class="p">,</span><span class="n">out</span><span class="o">.</span><span class="n">include_border</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Use scharr: True
+Value scharr: 1.5
+Use canny: True
+Value canny: 1.5
+Images canny: both color wheel
+Use quality: True
+Value quality: 60.0
+Include border: True
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {"01036113920841298749877ec6f08264": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "17fbb8b2c3e344ee894da3ffc5b8bf85": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "CheckboxModel", "state": {"description": "Use canny filter", "disabled": false, "layout": "IPY_MODEL_a194c0bd5d764082a975f91b01df98c1", "style": "IPY_MODEL_4cfc660c24a34d2daf11cfea8f443c9b", "value": true}}, "2050c5edd5504480bab9312316cac918": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "SliderStyleModel", "state": {"description_width": ""}}, "2108d749500545e18d13ce72fa1401cb": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "CheckboxModel", "state": {"description": "Use Quality filter", "disabled": false, "layout": "IPY_MODEL_fd6d4be6c4ed4c33b774a248be71258a", "style": "IPY_MODEL_88c06c85195540ff8639f1af0e22fe3e", "value": true}}, "21bd1c67946c469ab1af07a3d8bb5fcc": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "IntSliderModel", "state": {"continuous_update": false, "description": "Dilate GB:", "layout": "IPY_MODEL_ddd69c1f62fd48b5b9f3e2f23a318c59", "max": 10, "style": "IPY_MODEL_2050c5edd5504480bab9312316cac918", "value": 3}}, "2470b994da5a48c6ad7ea18eb8c2f5e7": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "29a41919a1414d189c3f010c3b94fc60": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "2a1f1dffa5d54c12aa5ce344cef831d2": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"children": ["IPY_MODEL_53fc2641521b40ce97f70a3dc6b9973b", "IPY_MODEL_17fbb8b2c3e344ee894da3ffc5b8bf85", "IPY_MODEL_d09365dd5ac04918935da5f404c61b98"], "layout": "IPY_MODEL_567b5f3a438946e3a5bbbe6238455a2c"}}, "2de08cbcc3824d429d9f47973fa56c64": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "SliderStyleModel", "state": {"description_width": ""}}, "2e23601092b345c18d60aef64e4ccf5c": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "32068538606848f3ba0872dd57d37dc1": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "342331443f5c4bbfb7d7ad31046ecc57": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"children": ["IPY_MODEL_e7110a6bbba14c86ae1b0fec6311b596", "IPY_MODEL_59e86c98e9e44e54aceb6db89ab7dd9e", "IPY_MODEL_9613c905bf1c47218321cafc4b2d3493"], "layout": "IPY_MODEL_f34f3c7806214b64a6c2454dd84a9411"}}, "342ecb14e4bd4616a101bec5519ded87": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "3603eade52824082a1b319a29eb7f9e4": {"model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "model_name": "OutputModel", "state": {"layout": "IPY_MODEL_be0135acb8cb4ee3acc201490d50013d"}}, "3979d8ae08c4493685a8885b29dfa820": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatSliderModel", "state": {"continuous_update": false, "description": "Quatlity filter:", "layout": "IPY_MODEL_d9c616b19c944dceb54a01f449d4c4f0", "readout_format": ".1f", "style": "IPY_MODEL_f9086bfda5b84c92a85feccb4c68e0ed", "value": 60}}, "399e6aab6dc343e29a49918a2b7c2440": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "SliderStyleModel", "state": {"description_width": ""}}, "39cbee43272549f0af476f2ad491ee71": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "4059f3bf54e24be4854f4e0a406c8f03": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "450478b367df4c6a9959bc478af31810": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DropdownModel", "state": {"_options_labels": ["semi color wheel", "full color wheel", "none"], "description": "Plot colormap", "index": 0, "layout": "IPY_MODEL_d8c861bfdc734102b487f00e6a7e4d14", "style": "IPY_MODEL_bd739a624a404b8281a99d812f529a74"}}, "4a5195df4a194e06b724ddda11b0e95f": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "4a9f4f135c9a4998a830ed01941b0ebd": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "4ae64045b96c42f0bb50959f1b52a2a1": {"model_module": "jupyter-matplotlib", "model_module_version": "^0.8.3", "model_name": "MPLCanvasModel", "state": {"_cursor": "default", "_figure_label": "Figure 3", "_height": 1000, "_image_mode": "diff", "_width": 500, "layout": "IPY_MODEL_f0f035fc529042418803e92ac3b8221c", "toolbar": "IPY_MODEL_d3254faba2124958aff56c432f586e20", "toolbar_position": "left"}}, "4cfc660c24a34d2daf11cfea8f443c9b": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "524a1dabad374751a46c00e8d000b3fe": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "53fc2641521b40ce97f70a3dc6b9973b": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatSliderModel", "state": {"continuous_update": false, "description": "Canny filter:", "layout": "IPY_MODEL_bc5c812dfe48497e92e62bb52e45bab4", "max": 10, "readout_format": ".1f", "step": 0.1, "style": "IPY_MODEL_c0316ea69eae4b7aae3c4e72a647247c", "value": 1.5}}, "5561240903aa4835ab3ee1a0eed31d61": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "SliderStyleModel", "state": {"description_width": ""}}, "567b5f3a438946e3a5bbbe6238455a2c": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "57152af7e01b486083f5edba4019f5d6": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "SliderStyleModel", "state": {"description_width": ""}}, "5718415bef2e461d9a9fb90909bcd271": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "59131be07d2e48abbc45ed839c6b5ce1": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatSliderModel", "state": {"continuous_update": false, "description": "Quatlity filter:", "layout": "IPY_MODEL_fc338b2dcb254aa28c77b71e0e686771", "readout_format": ".1f", "style": "IPY_MODEL_b897a8f5a1cf4ec0a8f5e1fc2859c8f5", "value": 60}}, "59e86c98e9e44e54aceb6db89ab7dd9e": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "CheckboxModel", "state": {"description": "Use canny filter", "disabled": false, "layout": "IPY_MODEL_5c79967b29824f23b814ef8b65121618", "style": "IPY_MODEL_cd74c2546f4d44c2af4f36433d8bffa9", "value": true}}, "5c79967b29824f23b814ef8b65121618": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "5e68de15d4b9438bbac544b529c9da22": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"children": ["IPY_MODEL_59131be07d2e48abbc45ed839c6b5ce1", "IPY_MODEL_2108d749500545e18d13ce72fa1401cb"], "layout": "IPY_MODEL_cdec034bbd4345528ac1e9a5cacdc562"}}, "5fcd14b7fd674a10965c3ef622284c3e": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "60feaa54d8834cbbb9fdb7ffccff87f1": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatSliderModel", "state": {"continuous_update": false, "description": "Scharr filter:", "layout": "IPY_MODEL_39cbee43272549f0af476f2ad491ee71", "max": 10, "readout_format": ".1f", "step": 0.1, "style": "IPY_MODEL_5561240903aa4835ab3ee1a0eed31d61", "value": 1.5}}, "67eebd84f5b4454cbaa558b65decc7e8": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"children": ["IPY_MODEL_3979d8ae08c4493685a8885b29dfa820", "IPY_MODEL_de71e6f212844a949f70c713289e4b88"], "layout": "IPY_MODEL_f166df4a25eb4cc28b0a99721aa0e39a"}}, "6cb8ef4f13d344239b751e5497170bef": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "CheckboxModel", "state": {"description": "Include border as grain boundaries", "disabled": false, "layout": "IPY_MODEL_cf7e5d3f092d4dcb875ec2d17d0f39b1", "style": "IPY_MODEL_8b79dd3157a04e4ba7aabaa437e5c105", "value": true}}, "764c16ed922d423191df30c28cffc5e8": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "VBoxModel", "state": {"children": ["IPY_MODEL_ad2a80c5a48e4df7ab33aa37c6b3503d", "IPY_MODEL_2a1f1dffa5d54c12aa5ce344cef831d2", "IPY_MODEL_67eebd84f5b4454cbaa558b65decc7e8", "IPY_MODEL_abb1c208a2964933a8ca167d3a6b3106", "IPY_MODEL_85f916f43d8f425c978cbdb85c4188b9", "IPY_MODEL_8c09ddadd02c4a638cbc9f51823e0b59", "IPY_MODEL_c3af7a8ed90f4c8c8aeb83dbbbcc70d9"], "layout": "IPY_MODEL_5fcd14b7fd674a10965c3ef622284c3e"}}, "797045eef9e7437d94a49aab1632fde0": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "7ee7c0ef876b4bb1bd16e2b87435c475": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "804e16254dab4ab08304211ae6add7bd": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "830ca3c96d764ac8b1001bae733172ee": {"model_module": "jupyter-matplotlib", "model_module_version": "^0.8.3", "model_name": "MPLCanvasModel", "state": {"_cursor": "default", "_figure_label": "Figure 2", "_height": 1000, "_image_mode": "diff", "_width": 500, "layout": "IPY_MODEL_b3562a006abf4acda5e2055cc7ef3412", "toolbar": "IPY_MODEL_94c0b7c4847f4904babe031316ea0aeb", "toolbar_position": "left"}}, "83aeea4c71b9488598872fbfaff753ea": {"model_module": "jupyter-matplotlib", "model_module_version": "^0.8.3", "model_name": "ToolbarModel", "state": {"layout": "IPY_MODEL_32068538606848f3ba0872dd57d37dc1", "toolitems": [["Home", "Reset original view", "home", "home"], ["Back", "Back to previous view", "arrow-left", "back"], ["Forward", "Forward to next view", "arrow-right", "forward"], ["Pan", "Left button pans, Right button zooms\nx/y fixes axis, CTRL fixes aspect", "arrows", "pan"], ["Zoom", "Zoom to rectangle\nx/y fixes axis, CTRL fixes aspect", "square-o", "zoom"], ["Download", "Download plot", "floppy-o", "save_figure"]]}}, "84aa8bc30e36427f9f663508d48bbcf5": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatSliderModel", "state": {"continuous_update": false, "description": "Scharr filter:", "layout": "IPY_MODEL_cc4b31152ccb4d44a9f930964859e1c2", "max": 10, "readout_format": ".1f", "step": 0.1, "style": "IPY_MODEL_57152af7e01b486083f5edba4019f5d6", "value": 1.5}}, "85f916f43d8f425c978cbdb85c4188b9": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "IntSliderModel", "state": {"continuous_update": false, "description": "Dilate GB:", "layout": "IPY_MODEL_797045eef9e7437d94a49aab1632fde0", "max": 10, "style": "IPY_MODEL_399e6aab6dc343e29a49918a2b7c2440", "value": 2}}, "88c06c85195540ff8639f1af0e22fe3e": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "8b79dd3157a04e4ba7aabaa437e5c105": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "8c09ddadd02c4a638cbc9f51823e0b59": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DropdownModel", "state": {"_options_labels": ["semi color wheel", "full color wheel", "none"], "description": "Plot colormap", "index": 0, "layout": "IPY_MODEL_7ee7c0ef876b4bb1bd16e2b87435c475", "style": "IPY_MODEL_4a9f4f135c9a4998a830ed01941b0ebd"}}, "90540f4b90f4493ea8be7e314a6579b5": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "CheckboxModel", "state": {"description": "Use scharr filter", "disabled": false, "layout": "IPY_MODEL_a0f5d669fe8844bf87ed307116a40110", "style": "IPY_MODEL_342ecb14e4bd4616a101bec5519ded87", "value": true}}, "908ae9117bc2476893007592cc203139": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "94c0b7c4847f4904babe031316ea0aeb": {"model_module": "jupyter-matplotlib", "model_module_version": "^0.8.3", "model_name": "ToolbarModel", "state": {"layout": "IPY_MODEL_d6ac11b3624f4701a3a339f3622fe5b7", "toolitems": [["Home", "Reset original view", "home", "home"], ["Back", "Back to previous view", "arrow-left", "back"], ["Forward", "Forward to next view", "arrow-right", "forward"], ["Pan", "Left button pans, Right button zooms\nx/y fixes axis, CTRL fixes aspect", "arrows", "pan"], ["Zoom", "Zoom to rectangle\nx/y fixes axis, CTRL fixes aspect", "square-o", "zoom"], ["Download", "Download plot", "floppy-o", "save_figure"]]}}, "94fa00bbba6746e9bafad220e44b31b2": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonStyleModel", "state": {}}, "9613c905bf1c47218321cafc4b2d3493": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DropdownModel", "state": {"_options_labels": ["semi color wheel", "full color wheel", "both color wheel"], "description": "Segmentation colormap", "index": 2, "layout": "IPY_MODEL_966503c15a524a56ba932c3a80bbdbe7", "style": "IPY_MODEL_f51ce80769124a4bb3902e06de7258cc"}}, "966503c15a524a56ba932c3a80bbdbe7": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "96accc85f0c044eebbfa942e76ec652c": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "9740647a12934ecba361d6d88b099a0c": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "9c0c1805bcb44c8dba175525611e188a": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "a0f5d669fe8844bf87ed307116a40110": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "a194c0bd5d764082a975f91b01df98c1": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "a9b7064f9c814d6faa988a049fc052e4": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "abb1c208a2964933a8ca167d3a6b3106": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "CheckboxModel", "state": {"description": "Include border as grain boundaries", "disabled": false, "layout": "IPY_MODEL_804e16254dab4ab08304211ae6add7bd", "style": "IPY_MODEL_2470b994da5a48c6ad7ea18eb8c2f5e7", "value": true}}, "ad2a80c5a48e4df7ab33aa37c6b3503d": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"children": ["IPY_MODEL_84aa8bc30e36427f9f663508d48bbcf5", "IPY_MODEL_f4d92719f3524e0b853566b3bb7f0209"], "layout": "IPY_MODEL_b7f5c4dc3c7f4e1fa42a91d84951aff7"}}, "affe159c80c449169031e401641a42de": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "b3562a006abf4acda5e2055cc7ef3412": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "b7f5c4dc3c7f4e1fa42a91d84951aff7": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "b897a8f5a1cf4ec0a8f5e1fc2859c8f5": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "SliderStyleModel", "state": {"description_width": ""}}, "b97d38a85a914c2390ef31f0e176997e": {"model_module": "jupyter-matplotlib", "model_module_version": "^0.8.3", "model_name": "ToolbarModel", "state": {"layout": "IPY_MODEL_29a41919a1414d189c3f010c3b94fc60", "toolitems": [["Home", "Reset original view", "home", "home"], ["Back", "Back to previous view", "arrow-left", "back"], ["Forward", "Forward to next view", "arrow-right", "forward"], ["Pan", "Left button pans, Right button zooms\nx/y fixes axis, CTRL fixes aspect", "arrows", "pan"], ["Zoom", "Zoom to rectangle\nx/y fixes axis, CTRL fixes aspect", "square-o", "zoom"], ["Download", "Download plot", "floppy-o", "save_figure"]]}}, "bc5c812dfe48497e92e62bb52e45bab4": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "bd739a624a404b8281a99d812f529a74": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "be0135acb8cb4ee3acc201490d50013d": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "c0316ea69eae4b7aae3c4e72a647247c": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "SliderStyleModel", "state": {"description_width": ""}}, "c3af7a8ed90f4c8c8aeb83dbbbcc70d9": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonModel", "state": {"description": "Export AITA", "layout": "IPY_MODEL_96accc85f0c044eebbfa942e76ec652c", "style": "IPY_MODEL_94fa00bbba6746e9bafad220e44b31b2"}}, "c4d3fdf3b90a403abd2474addbb48e01": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonStyleModel", "state": {}}, "cc4b31152ccb4d44a9f930964859e1c2": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "cd74c2546f4d44c2af4f36433d8bffa9": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "cdec034bbd4345528ac1e9a5cacdc562": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "cf7e5d3f092d4dcb875ec2d17d0f39b1": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "d09365dd5ac04918935da5f404c61b98": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DropdownModel", "state": {"_options_labels": ["semi color wheel", "full color wheel", "both color wheel"], "description": "Segmentation colormap", "index": 2, "layout": "IPY_MODEL_4059f3bf54e24be4854f4e0a406c8f03", "style": "IPY_MODEL_5718415bef2e461d9a9fb90909bcd271"}}, "d1b4365cc0a846bfa4a5202ea94d826b": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "d3254faba2124958aff56c432f586e20": {"model_module": "jupyter-matplotlib", "model_module_version": "^0.8.3", "model_name": "ToolbarModel", "state": {"layout": "IPY_MODEL_524a1dabad374751a46c00e8d000b3fe", "toolitems": [["Home", "Reset original view", "home", "home"], ["Back", "Back to previous view", "arrow-left", "back"], ["Forward", "Forward to next view", "arrow-right", "forward"], ["Pan", "Left button pans, Right button zooms\nx/y fixes axis, CTRL fixes aspect", "arrows", "pan"], ["Zoom", "Zoom to rectangle\nx/y fixes axis, CTRL fixes aspect", "square-o", "zoom"], ["Download", "Download plot", "floppy-o", "save_figure"]]}}, "d39faef16f194bb9b4474516f8c84566": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ButtonModel", "state": {"description": "Export AITA", "layout": "IPY_MODEL_2e23601092b345c18d60aef64e4ccf5c", "style": "IPY_MODEL_c4d3fdf3b90a403abd2474addbb48e01"}}, "d6ac11b3624f4701a3a339f3622fe5b7": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "d8c861bfdc734102b487f00e6a7e4d14": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "d9c616b19c944dceb54a01f449d4c4f0": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "da99ca25a07440e2b533e7070a157694": {"model_module": "jupyter-matplotlib", "model_module_version": "^0.8.3", "model_name": "MPLCanvasModel", "state": {"_cursor": "default", "_figure_label": "Figure 1", "_height": 1000, "_image_mode": "diff", "_width": 500, "layout": "IPY_MODEL_908ae9117bc2476893007592cc203139", "toolbar": "IPY_MODEL_b97d38a85a914c2390ef31f0e176997e", "toolbar_position": "left"}}, "db1198394d25439991f92e145a31661e": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"children": ["IPY_MODEL_60feaa54d8834cbbb9fdb7ffccff87f1", "IPY_MODEL_90540f4b90f4493ea8be7e314a6579b5"], "layout": "IPY_MODEL_01036113920841298749877ec6f08264"}}, "ddd69c1f62fd48b5b9f3e2f23a318c59": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "de71e6f212844a949f70c713289e4b88": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "CheckboxModel", "state": {"description": "Use Quality filter", "disabled": false, "layout": "IPY_MODEL_dfe32ec49790432f8850d9a91c6b91a5", "style": "IPY_MODEL_9740647a12934ecba361d6d88b099a0c", "value": true}}, "dfe32ec49790432f8850d9a91c6b91a5": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "e06bed418ffb497a80813bcbf8eb3373": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "VBoxModel", "state": {"children": ["IPY_MODEL_db1198394d25439991f92e145a31661e", "IPY_MODEL_342331443f5c4bbfb7d7ad31046ecc57", "IPY_MODEL_5e68de15d4b9438bbac544b529c9da22", "IPY_MODEL_6cb8ef4f13d344239b751e5497170bef", "IPY_MODEL_21bd1c67946c469ab1af07a3d8bb5fcc", "IPY_MODEL_450478b367df4c6a9959bc478af31810", "IPY_MODEL_d39faef16f194bb9b4474516f8c84566"], "layout": "IPY_MODEL_d1b4365cc0a846bfa4a5202ea94d826b"}}, "e0c3f051e85a4646a346cf819d4429c4": {"model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "model_name": "OutputModel", "state": {"layout": "IPY_MODEL_e5a8b3a6c45e4dcd92b0d2f51f5bbbaf"}}, "e5a8b3a6c45e4dcd92b0d2f51f5bbbaf": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "e7110a6bbba14c86ae1b0fec6311b596": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatSliderModel", "state": {"continuous_update": false, "description": "Canny filter:", "layout": "IPY_MODEL_a9b7064f9c814d6faa988a049fc052e4", "max": 10, "readout_format": ".1f", "step": 0.1, "style": "IPY_MODEL_2de08cbcc3824d429d9f47973fa56c64", "value": 1.5}}, "f0f035fc529042418803e92ac3b8221c": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "f166df4a25eb4cc28b0a99721aa0e39a": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "f34f3c7806214b64a6c2454dd84a9411": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "f4d92719f3524e0b853566b3bb7f0209": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "CheckboxModel", "state": {"description": "Use scharr filter", "disabled": false, "layout": "IPY_MODEL_4a5195df4a194e06b724ddda11b0e95f", "style": "IPY_MODEL_9c0c1805bcb44c8dba175525611e188a", "value": true}}, "f51ce80769124a4bb3902e06de7258cc": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "f9086bfda5b84c92a85feccb4c68e0ed": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "SliderStyleModel", "state": {"description_width": ""}}, "fc338b2dcb254aa28c77b71e0e686771": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}, "fd6d4be6c4ed4c33b774a248be71258a": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {}}}, "version_major": 2, "version_minor": 0}
+</script>
+
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "basepy38"
+        },
+        kernelOptions: {
+            kernelName: "basepy38",
+            path: "./docs"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'basepy38'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="mis_angle_dist.html" title="previous page">The misorientation angle distribution</a>
+    <a class='right-next' id="next-link" href="The_dataset_structure.html" title="next page">The <code class="docutils literal notranslate"><span class="pre">xarray.Dataset</span></code> strucuture for AITA</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Thomas Chauve<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
