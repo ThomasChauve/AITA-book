@@ -15,3 +15,7 @@
   chapters:
     - file: docs/The_dataset_structure
     - file: docs/The_dataArray_structure
+    
+- part: Script just to IGE (need to be remove)
+  chapters:
+    - file: docs/CraFT
