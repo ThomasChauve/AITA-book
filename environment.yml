@@ -12,3 +12,4 @@ dependencies:
   - pip
   - pip:
     - -e git+https://github.com/ThomasChauve/xarray_aita.git@main#egg=xarrayaita
+    - -e git+https://github.com/ThomasChauve/xarray_uvecs.git@main#egg=xarrayuvecs
